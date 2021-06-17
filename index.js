@@ -15,14 +15,12 @@ let client = "";
 app.use(bodyParser.json());
 
 
-// used to list the movies in the database
 app.get('/movie/list', async (req, res) => {
     const collection = client.db(dbName).collection(collectionName);
     const response = await collection.find().toArray();
     res.send(JSON.stringify(response));
 })
 
-//list by grouping actors with no of movies and total runtime
 app.get('/movie/actor/analysis', async (req, res) => {
     const collection = client.db(dbName).collection(collectionName);
     const response = await collection.aggregate([
@@ -36,7 +34,7 @@ app.get('/movie/actor/analysis', async (req, res) => {
     res.send(response);
 })
 
-//list group by year with no of movies and total runtime
+
 app.get('/movie/year/analysis', async (req, res) => {
     const collection = client.db(dbName).collection(collectionName);
     const response = await collection.aggregate([
@@ -50,7 +48,7 @@ app.get('/movie/year/analysis', async (req, res) => {
     res.send(response);
 })
 
-// create movies with required feilds
+
 app.post('/movie/create', async (req, res) => {
     const movieObject=req.body;
     if(!movieObject.name || !movieObject.genre   || !movieObject.actor)
